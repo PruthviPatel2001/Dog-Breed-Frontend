@@ -3,11 +3,12 @@ import { formateDogBreedName } from "../../utils/nameFormation";
 import { Link } from "react-router-dom";
 import { predict } from "../../API/model-api";
 import { HashLink } from "react-router-hash-link";
+import { DogBreed } from "../../types/dog_breed_types";
 
 type UploadedImageProps = {
   file: File;
   imageSrc?: string;
-  handleDogBreed: (breed: string) => void;
+  handleDogBreed: (breed: DogBreed) => void;
 };
 
 const UploadedImage = ({
@@ -24,8 +25,8 @@ const UploadedImage = ({
 
       try {
         const response = await predict(formData);
-        handleDogBreed(response.predicted_breed);
-        console.log(response.predicted_breed);
+        console.log(response);
+        handleDogBreed(response);
         // window.location.hash = `#dog-details`;
       } catch (error) {
         console.error("Error making prediction:", error);
@@ -37,7 +38,7 @@ const UploadedImage = ({
     <div className="">
       {imageSrc && (
         <div>
-          <h3 className="text-[#F6B17A] text-center text-2xl">
+          <h3 className="text-[#FFA447] text-center text-2xl">
             Uploaded Image
           </h3>
           <div className="max-w-full max-h-72  flex justify-center">

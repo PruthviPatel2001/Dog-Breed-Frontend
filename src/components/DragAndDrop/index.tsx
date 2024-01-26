@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
-import { predict } from "../../API/model-api";
 import UploadedImage from "./uploadedImage";
+import { updateItemInLocalStorage } from "../../utils/manageLocalStorage";
+import { DogBreed } from "../../types/dog_breed_types";
 
 type DragAndDropHolderProps = {
-  handleDogBreed: (breed: string) => void;
+  handleDogBreed: (breed: DogBreed) => void;
 };
 
 const DragAndDropHolder = ({ handleDogBreed }: DragAndDropHolderProps) => {
@@ -19,7 +20,10 @@ const DragAndDropHolder = ({ handleDogBreed }: DragAndDropHolderProps) => {
 
       const reader = new FileReader();
       reader.onload = () => {
-        setImageSrc(reader.result as string);
+        let imgData = reader.result as string;
+        setImageSrc(imgData);
+        handleDogBreed({} as DogBreed);
+        updateItemInLocalStorage("dog-image", imgData);
       };
       reader.readAsDataURL(selectedFile);
     }
