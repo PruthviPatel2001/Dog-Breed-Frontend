@@ -1,9 +1,12 @@
 import axios from "axios";
 
-const baseURL = "http://127.0.0.1:8000/dogbreedclassifier/predict";
+const baseURL = {
+  dev: "http://127.0.0.1:8000/dogbreedclassifier/predict",
+  prod: "https://dog-breeds-api.onrender.com/dogbreedclassifier/predict",
+};
 
 const API = axios.create({
-  baseURL,
+  baseURL: baseURL.prod,
 });
 
 export const predict = async (formData: FormData) => {

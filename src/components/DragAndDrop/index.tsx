@@ -6,9 +6,13 @@ import { DogBreed } from "../../types/dog_breed_types";
 
 type DragAndDropHolderProps = {
   handleDogBreed: (breed: DogBreed) => void;
+  handleIsLoading: (isLoading: boolean) => void;
 };
 
-const DragAndDropHolder = ({ handleDogBreed }: DragAndDropHolderProps) => {
+const DragAndDropHolder = ({
+  handleDogBreed,
+  handleIsLoading,
+}: DragAndDropHolderProps) => {
   const fileTypes: string[] = ["JPEG", "PNG", "GIF", "JPG"];
   const [file, setFile] = useState<File | null>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -31,12 +35,13 @@ const DragAndDropHolder = ({ handleDogBreed }: DragAndDropHolderProps) => {
 
   return (
     <div className="grid grid-cols-12 border w-full py-4">
-      <div className="col-span-6 border-r-2 flex flex-col justify-center items-center">
+      <div className="col-span-12 lg:col-span-6 border-r-2 flex flex-col justify-center items-center">
         {imageSrc && file ? (
           <UploadedImage
             imageSrc={imageSrc}
             file={file}
             handleDogBreed={handleDogBreed}
+            handleIsLoading={handleIsLoading}
           />
         ) : (
           <img
@@ -47,7 +52,7 @@ const DragAndDropHolder = ({ handleDogBreed }: DragAndDropHolderProps) => {
         )}
       </div>
 
-      <div className="col-span-6  flex flex-col justify-center items-center">
+      <div className="col-span-12 lg:col-span-6  flex flex-col justify-center items-center">
         <FileUploader
           multiple={false}
           handleChange={handleChange}

@@ -1,6 +1,3 @@
-import React, { useState } from "react";
-import { formateDogBreedName } from "../../utils/nameFormation";
-import { Link } from "react-router-dom";
 import { predict } from "../../API/model-api";
 import { HashLink } from "react-router-hash-link";
 import { DogBreed } from "../../types/dog_breed_types";
@@ -9,12 +6,14 @@ type UploadedImageProps = {
   file: File;
   imageSrc?: string;
   handleDogBreed: (breed: DogBreed) => void;
+  handleIsLoading: (isLoading: boolean) => void;
 };
 
 const UploadedImage = ({
   file,
   imageSrc,
   handleDogBreed,
+  handleIsLoading,
 }: UploadedImageProps) => {
   const handelClick = async () => {
     if (file) {
@@ -24,12 +23,16 @@ const UploadedImage = ({
       formData.append("image", selectedFile);
 
       try {
+        handleIsLoading(true);
         const response = await predict(formData);
-        console.log(response);
-        handleDogBreed(response);
+        if (response) {
+          handleDogBreed(response);
+          handleIsLoading(false);
+        }
         // window.location.hash = `#dog-details`;
       } catch (error) {
         console.error("Error making prediction:", error);
+        handleIsLoading(false);
       }
     }
   };

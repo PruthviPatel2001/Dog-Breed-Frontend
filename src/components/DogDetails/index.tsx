@@ -21,7 +21,7 @@ const DogDetails = ({ dogBreed }: DogDetailsProps) => {
 
   return (
     <div className="grid grid-cols-12">
-      <div className="col-span-4 flex flex-col justify-center items-center">
+      <div className="col-span-12 lg:col-span-4 flex flex-col justify-center items-center">
         <img
           src={DogImage}
           alt="dog"
@@ -31,14 +31,16 @@ const DogDetails = ({ dogBreed }: DogDetailsProps) => {
           {formateDogBreedName(dogBreed.predicted_breed)}
         </p>
       </div>
-      <div className="col-span-8  px-4">
+      <div className=" col-span-12 mt-4 lg:mt-0 lg:col-span-8  px-4">
         <h1 className="text-white text-center text-xl">
           About{" "}
           <span className="text-[#FFA447]">
             {formateDogBreedName(dogBreed.predicted_breed)}
           </span>
         </h1>
-        <h4 className="text-white mt-4">{dogBreed.breed_details?.detail}</h4>
+        <h4 className="text-white text-lg mt-4">
+          {dogBreed.breed_details?.detail}
+        </h4>
         <h3 className="text-white mt-10 text-lg">
           Facts About{" "}
           <span className="text-[#FFA447]">
@@ -50,7 +52,7 @@ const DogDetails = ({ dogBreed }: DogDetailsProps) => {
             {dogBreed.breed_details?.facts?.map((fact, index) => (
               <li
                 key={index}
-                className="text-white border p-4 shadow-xl rounded-md mt-4 first:mt-0"
+                className="text-white text-lg border p-4 shadow-xl rounded-md mt-4 first:mt-0"
               >
                 {fact}
               </li>

@@ -1,17 +1,14 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import Header from "./components/Header";
-import DragAndDropHolder from "./components/DragAndDrop";
-import { Route, Routes } from "react-router-dom";
-import DogDetails from "./components/DogDetails";
+import About from "./screens/About";
 import Home from "./screens/home";
+import { Routes, Route } from "react-router-dom";
 function App() {
   return (
     <div className="">
-      <div>
-        <Home />
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+      <div></div>
     </div>
   );
 }
