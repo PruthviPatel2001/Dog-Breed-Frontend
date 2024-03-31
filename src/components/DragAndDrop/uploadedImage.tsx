@@ -87,7 +87,7 @@ const UploadedImage = ({
               onClick={DisableButton ? undefined : handelClick} // Disable onClick when loading
               className={`text-[#fff] bg-[#03C988] border shadow-xl p-2 rounded w-full text-center text-xl ${
                 DisableButton
-                  ? "cursor-not-allowed opacity-50 bg-[#F6F5F5] text-[#222831]"
+                  ? "cursor-not-allowed   text-[white] bg-zinc-500"
                   : ""
               }`}
             >

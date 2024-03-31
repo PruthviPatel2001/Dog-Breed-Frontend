@@ -30,6 +30,10 @@ const DogDetails = ({ dogBreed }: DogDetailsProps) => {
         <p className="text-[#DCFFB7] text-center text-xl mt-4">
           {formateDogBreedName(dogBreed.predicted_breed)}
         </p>
+        <h3 className="text-white mt-4 text-base">
+          Model Confidence Score:{" "}
+          <span className="text-[#FFA447]">{dogBreed.confidence_score}%</span>
+        </h3>
       </div>
       <div className=" col-span-12 mt-4 lg:mt-0 lg:col-span-8  px-4">
         <h1 className="text-white text-center text-xl">
@@ -38,10 +42,11 @@ const DogDetails = ({ dogBreed }: DogDetailsProps) => {
             {formateDogBreedName(dogBreed.predicted_breed)}
           </span>
         </h1>
+
         <h4 className="text-white text-lg mt-4">
           {dogBreed.breed_details?.detail}
         </h4>
-        <h3 className="text-white mt-10 text-lg">
+        <h3 className="text-white mt-8 text-lg">
           Facts About{" "}
           <span className="text-[#FFA447]">
             {formateDogBreedName(dogBreed.predicted_breed)}

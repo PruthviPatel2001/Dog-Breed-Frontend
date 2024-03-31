@@ -34,9 +34,6 @@ const Home = () => {
     setShowTimeoutMessage(value);
   };
 
-  console.log(isLoading, "isLoading");
-  console.log(showTimeoutMessage, "showTimeoutMessage");
-
   return (
     <div>
       <div className="">
@@ -61,18 +58,19 @@ const Home = () => {
         </div>
 
         {isLoading ? (
-          showTimeoutMessage ? (
-            <div className="mt-10">
-              <h1 className="text-white text-center text-2xl">
-                Request taking longer than expected, possibly due to server
-                limitations. Thank you for your patience.
-              </h1>
-            </div>
-          ) : (
-            <div className="mt-10">
-              <h1 className="text-white text-center text-2xl">Loading...</h1>
-            </div>
-          )
+          <div className="mt-10">
+            <h1 className="text-white text-center text-2xl">Loading...</h1>
+
+            {showTimeoutMessage && (
+              <div>
+                <br />
+                <h1 className="text-white text-center text-lg">
+                  Request taking longer than expected, possibly due to server
+                  limitations. Thank you for your patience.
+                </h1>
+              </div>
+            )}
+          </div>
         ) : (
           dogBreed &&
           Object.keys(dogBreed).length > 0 && (
