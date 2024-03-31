@@ -1,12 +1,16 @@
 import { predict } from "../../API/model-api";
 import { HashLink } from "react-router-hash-link";
 import { DogBreed } from "../../types/dog_breed_types";
+import { useEffect, useState } from "react";
 
 type UploadedImageProps = {
   file: File;
   imageSrc?: string;
   handleDogBreed: (breed: DogBreed) => void;
   handleIsLoading: (isLoading: boolean) => void;
+  handleTimeoutMessage: (value: boolean) => void;
+  isLoading: boolean;
+  dogBreed: DogBreed | null;
 };
 
 const UploadedImage = ({
@@ -14,6 +18,9 @@ const UploadedImage = ({
   imageSrc,
   handleDogBreed,
   handleIsLoading,
+  handleTimeoutMessage,
+  isLoading,
+  dogBreed,
 }: UploadedImageProps) => {
   const handelClick = async () => {
     if (file) {
@@ -22,10 +29,16 @@ const UploadedImage = ({
       const formData = new FormData();
       formData.append("image", selectedFile);
 
+      let timeoutId = setTimeout(() => {
+        handleTimeoutMessage(true);
+      }, 5000);
+
       try {
         handleIsLoading(true);
         const response = await predict(formData);
         if (response) {
+          clearTimeout(timeoutId);
+          handleTimeoutMessage(false);
           handleDogBreed(response);
           handleIsLoading(false);
         }
@@ -33,9 +46,25 @@ const UploadedImage = ({
       } catch (error) {
         console.error("Error making prediction:", error);
         handleIsLoading(false);
+        clearTimeout(timeoutId);
+        handleTimeoutMessage(false);
       }
     }
   };
+
+  const [DisableButton, setDisableButton] = useState(false);
+
+  useEffect(() => {
+    const checkLoading = async () => {
+      if (isLoading || (dogBreed && Object.keys(dogBreed).length > 0)) {
+        setDisableButton(true);
+      } else {
+        setDisableButton(false);
+      }
+    };
+
+    checkLoading();
+  }, [isLoading, dogBreed]);
 
   return (
     <div className="">
@@ -55,8 +84,12 @@ const UploadedImage = ({
             <HashLink
               to={`/#dog-details`}
               smooth={true}
-              onClick={handelClick}
-              className="text-[#fff] bg-[#03C988] border shadow-xl p-2 rounded  w-full text-center text-xl"
+              onClick={DisableButton ? undefined : handelClick} // Disable onClick when loading
+              className={`text-[#fff] bg-[#03C988] border shadow-xl p-2 rounded w-full text-center text-xl ${
+                DisableButton
+                  ? "cursor-not-allowed opacity-50 bg-[#F6F5F5] text-[#222831]"
+                  : ""
+              }`}
             >
               Find The Breed
             </HashLink>

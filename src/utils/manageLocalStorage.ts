@@ -13,7 +13,6 @@ export const removeItemFromLocalStorage = (key: string) => {
 export const updateItemInLocalStorage = (key: string, value: string) => {
   const item = getItemFromLocalStorage(key);
   if (item) {
-    console.log("item", item);
     removeItemFromLocalStorage(key);
     addItemToLocalStorage(key, value);
   } else {

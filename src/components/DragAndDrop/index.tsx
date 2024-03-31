@@ -7,11 +7,17 @@ import { DogBreed } from "../../types/dog_breed_types";
 type DragAndDropHolderProps = {
   handleDogBreed: (breed: DogBreed) => void;
   handleIsLoading: (isLoading: boolean) => void;
+  handleTimeoutMessage: (value: boolean) => void;
+  isLoading: boolean;
+  dogBreed: DogBreed | null;
 };
 
 const DragAndDropHolder = ({
   handleDogBreed,
   handleIsLoading,
+  handleTimeoutMessage,
+  isLoading,
+  dogBreed,
 }: DragAndDropHolderProps) => {
   const fileTypes: string[] = ["JPEG", "PNG", "GIF", "JPG"];
   const [file, setFile] = useState<File | null>(null);
@@ -21,6 +27,7 @@ const DragAndDropHolder = ({
     if (file) {
       const selectedFile = file;
       setFile(selectedFile);
+      handleIsLoading(false);
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -42,6 +49,9 @@ const DragAndDropHolder = ({
             file={file}
             handleDogBreed={handleDogBreed}
             handleIsLoading={handleIsLoading}
+            handleTimeoutMessage={handleTimeoutMessage}
+            isLoading={isLoading}
+            dogBreed={dogBreed}
           />
         ) : (
           <img

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import DragAndDropHolder from "../../components/DragAndDrop";
 import DogDetails from "../../components/DogDetails";
 import { DogBreed } from "../../types/dog_breed_types";
 import { Link } from "react-router-dom";
+import { time } from "console";
 
 export interface Root {
   predicted_breed: string;
@@ -19,6 +20,7 @@ export interface BreedDetails {
 const Home = () => {
   const [dogBreed, setdogBreed] = useState<DogBreed | null>({} as DogBreed);
   const [isLoading, setIsLoading] = useState(false);
+  const [showTimeoutMessage, setShowTimeoutMessage] = useState(false);
 
   const handleDogBreed = (breed: DogBreed) => {
     setdogBreed(breed);
@@ -27,6 +29,14 @@ const Home = () => {
   const handleIsLoading = (isLoading: boolean) => {
     setIsLoading(isLoading);
   };
+
+  const handleTimeoutMessage = (value: boolean) => {
+    setShowTimeoutMessage(value);
+  };
+
+  console.log(isLoading, "isLoading");
+  console.log(showTimeoutMessage, "showTimeoutMessage");
+
   return (
     <div>
       <div className="">
@@ -44,15 +54,28 @@ const Home = () => {
           <DragAndDropHolder
             handleDogBreed={handleDogBreed}
             handleIsLoading={handleIsLoading}
+            handleTimeoutMessage={handleTimeoutMessage}
+            isLoading={isLoading}
+            dogBreed={dogBreed}
           />
         </div>
+
         {isLoading ? (
-          <div className="mt-10">
-            <h1 className="text-white text-center text-2xl">Loading...</h1>
-          </div>
+          showTimeoutMessage ? (
+            <div className="mt-10">
+              <h1 className="text-white text-center text-2xl">
+                Request taking longer than expected, possibly due to server
+                limitations. Thank you for your patience.
+              </h1>
+            </div>
+          ) : (
+            <div className="mt-10">
+              <h1 className="text-white text-center text-2xl">Loading...</h1>
+            </div>
+          )
         ) : (
           dogBreed &&
-          dogBreed?.predicted_breed?.length > 0 && (
+          Object.keys(dogBreed).length > 0 && (
             <div className="mt-10 ">
               <h1 className="text-white text-center underline text-2xl">
                 Know Your <span className="text-[#FFE7C1]"> Dog Breed</span>
