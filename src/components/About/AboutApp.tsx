@@ -1,9 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const AboutApp = () => {
+  let navigate = useNavigate();
+
   return (
-    <div className="p-10">
-      <h1 className="text-white text-center text-3xl">
+    <div className="p-10 ">
+      <button
+        onClick={() => navigate(-1)}
+        className="bg-white  shadow-xl py-2 px-8 inline-block rounded-lg"
+      >
+        <h4 className="text-black">Back</h4>
+      </button>
+      <h1 className="text-white text-center  text-3xl">
         About
         <span className="text-[#FFA447]"> Application</span>
       </h1>
@@ -13,7 +22,7 @@ const AboutApp = () => {
           <img src={"./images/dog-2.png"} alt="dog" className="max-w-full " />
         </div>
         <div className="col-span-12 lg:col-span-7  md:py-10">
-          <h1 className="text-2xl text-white">
+          <h1 className="text-xl text-white border-b-2 inline pb-2 border-white">
             <span className="text-[#F2F597]">PupTeller</span> Amazing Feature:
           </h1>
           <div className="mt-4">
@@ -26,7 +35,7 @@ const AboutApp = () => {
           </div>
 
           <div className="mt-6">
-            <h1 className="text-2xl text-white">
+            <h1 className="text-xl text-white  border-b-2 inline pb-2">
               <span className="text-[#F2F597]">Tech Wonder</span> Behind the
               App:
             </h1>
@@ -54,7 +63,7 @@ const AboutApp = () => {
           </div>
 
           <div className="mt-6">
-            <h1 className="text-2xl text-white">
+            <h1 className="text-xl text-white  border-b-2 inline pb-2">
               <span className="text-[#F2F597]">How</span> the Magic Happens:
             </h1>
           </div>
@@ -76,7 +85,7 @@ const AboutApp = () => {
           </div>
 
           <div className="mt-6">
-            <h1 className="text-2xl text-white">
+            <h1 className="text-xl text-white border-b-2 inline pb-2">
               <span className="text-[#F2F597]">Model</span> Mastery:
             </h1>
           </div>
